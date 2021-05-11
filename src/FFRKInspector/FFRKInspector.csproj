@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--Project was exported from assembly: E:\workspaces\ffrki\FFRKInspector.dll-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{88C556D3-012B-48A2-8EAE-99FDA67ABA79}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>FFRKInspector</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>FFRKInspector</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Fiddler">
+      <HintPath>C:\Users\jlepp\AppData\Local\Programs\Fiddler\Fiddler.exe</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>lib\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>lib\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="equipmentStatsDataSet.cs" />
+    <Compile Include="EquipUsageDataSet.cs" />
+    <Compile Include="missingItemsDataSet.cs" />
+    <Compile Include="Utility\IConverter`2.cs" />
+    <Compile Include="Utility\CriticalZ.cs" />
+    <Compile Include="Utility\Histogram.cs" />
+    <Compile Include="Utility\Log.cs" />
+    <Compile Include="Utility\Utility.cs" />
+    <Compile Include="UI\DataGridViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKViewEnemyDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKViewGacha2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\IDataGridViewAutoCompleteSource.cs" />
+    <Compile Include="UI\EnumDataViewGridCell`1.cs" />
+    <Compile Include="UI\EnumDataViewGridComboBoxCell`1.cs" />
+    <Compile Include="UI\DeselectableListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKViewAbout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKViewActiveBattle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKViewBrowse.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKViewActiveDungeon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKTabInspector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKViewDebugging.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKViewGacha.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKViewInventory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKViewItemSearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FieldWidthStyle.cs" />
+    <Compile Include="UI\IListViewField.cs" />
+    <Compile Include="UI\IListViewBinding.cs" />
+    <Compile Include="UI\ListListViewBinding`1.cs" />
+    <Compile Include="UI\ListViewColumnSorter.cs" />
+    <Compile Include="UI\ListViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\ListViewEx2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\ListViewField`1.cs" />
+    <Compile Include="UI\SeriesDataGridViewCell.cs" />
+    <Compile Include="UI\ListViewFields\TrivialField`2.cs" />
+    <Compile Include="UI\ListViewFields\ItemNameField.cs" />
+    <Compile Include="UI\ListViewFields\ItemDungeonField.cs" />
+    <Compile Include="UI\ListViewFields\ItemBattleField.cs" />
+    <Compile Include="UI\ListViewFields\ItemWorldField.cs" />
+    <Compile Include="UI\ListViewFields\ItemTotalDropsField.cs" />
+    <Compile Include="UI\ListViewFields\ItemTimesRunField.cs" />
+    <Compile Include="UI\ListViewFields\ItemBattleStaminaField.cs" />
+    <Compile Include="UI\ListViewFields\ItemStaminaToReachField.cs" />
+    <Compile Include="UI\ListViewFields\ItemRepeatableField.cs" />
+    <Compile Include="UI\ListViewFields\ItemRarityField.cs" />
+    <Compile Include="UI\ListViewFields\ItemSynergyField.cs" />
+    <Compile Include="UI\ListViewFields\ItemDropsPerRunField.cs" />
+    <Compile Include="UI\ListViewFields\ItemStaminaPerDropField.cs" />
+    <Compile Include="UI\ListViewFields\CharacterNameField.cs" />
+    <Compile Include="UI\ListViewFields\CharacterLevelField.cs" />
+    <Compile Include="UI\ListViewFields\CharacterLevelMaxField.cs" />
+    <Compile Include="UI\DatabaseUI\FFRKDataBoundPanel.cs" />
+    <Compile Include="UI\DatabaseUI\ItemStatsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\DatabaseUI\FFRKViewDatabase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\DatabaseUI\MissingItemsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Proxy\HandleGachaDraw.cs" />
+    <Compile Include="Proxy\IResponseHandler.cs" />
+    <Compile Include="Proxy\SimpleResponseHandler.cs" />
+    <Compile Include="Proxy\HandleAppInitData.cs" />
+    <Compile Include="Proxy\HandleGachaSeriesDetails.cs" />
+    <Compile Include="Proxy\HandleGachaSeriesList.cs" />
+    <Compile Include="Proxy\HandleListBattles.cs" />
+    <Compile Include="Proxy\HandleListDungeons.cs" />
+    <Compile Include="Proxy\HandleInitiateBattle.cs" />
+    <Compile Include="Proxy\HandlePartyList.cs" />
+    <Compile Include="Proxy\HandleLeaveDungeon.cs" />
+    <Compile Include="Proxy\HandleCompleteBattle.cs" />
+    <Compile Include="Proxy\FFRKProxy.cs" />
+    <Compile Include="Proxy\ResponseHistory.cs" />
+    <Compile Include="Properties\Settings.cs" />
+    <Compile Include="Properties\Resources.cs" />
+    <Compile Include="missingItemsDataSetTableAdapters\missing_itemsTableAdapter.cs" />
+    <Compile Include="missingItemsDataSetTableAdapters\TableAdapterManager.cs" />
+    <Compile Include="EquipUsageDataSetTableAdapters\equip_usageTableAdapter.cs" />
+    <Compile Include="EquipUsageDataSetTableAdapters\charactersTableAdapter.cs" />
+    <Compile Include="EquipUsageDataSetTableAdapters\TableAdapterManager.cs" />
+    <Compile Include="equipmentStatsDataSetTableAdapters\equipment_statsTableAdapter.cs" />
+    <Compile Include="equipmentStatsDataSetTableAdapters\TableAdapterManager.cs" />
+    <Compile Include="Config\ListViewColumnSettings.cs" />
+    <Compile Include="Config\ListViewSettings.cs" />
+    <Compile Include="Config\SerializableDictionary`2.cs" />
+    <Compile Include="Config\AppSettings.cs" />
+    <Compile Include="Analyzer\EquipmentAnalyzer.cs" />
+    <Compile Include="Analyzer\AnalyzerSettings.cs" />
+    <Compile Include="DataCache\FFRKDataCache.cs" />
+    <Compile Include="DataCache\FFRKDataCacheTable`2.cs" />
+    <Compile Include="DataCache\Worlds\Key.cs" />
+    <Compile Include="DataCache\Worlds\Data.cs" />
+    <Compile Include="DataCache\Items\Key.cs" />
+    <Compile Include="DataCache\Items\Data.cs" />
+    <Compile Include="DataCache\Dungeons\Key.cs" />
+    <Compile Include="DataCache\Dungeons\Data.cs" />
+    <Compile Include="DataCache\Battles\Key.cs" />
+    <Compile Include="DataCache\Battles\Data.cs" />
+    <Compile Include="DataCache\Banners\Data.cs" />
+    <Compile Include="DataCache\Banners\Key.cs" />
+    <Compile Include="Database\DbOpFilterDraws.cs" />
+    <Compile Include="Database\DbOpLoadFeaturedItems.cs" />
+    <Compile Include="Database\DbOpLoadAllBanners.cs" />
+    <Compile Include="Database\DbOpRecordGachaDraw.cs" />
+    <Compile Include="Database\DbOpRecordGachaProbabilities.cs" />
+    <Compile Include="Database\DbOpRecordGachaSeriesList.cs" />
+    <Compile Include="Database\DataRecordExtensions.cs" />
+    <Compile Include="Database\IDbRequest.cs" />
+    <Compile Include="Database\DbOpFilterDrops.cs" />
+    <Compile Include="Database\DbOpVerifySchema.cs" />
+    <Compile Include="Database\DbOpInsertItems.cs" />
+    <Compile Include="Database\DbOpLoadAllBattles.cs" />
+    <Compile Include="Database\DbOpLoadAllDungeons.cs" />
+    <Compile Include="Database\DbOpLoadAllItems.cs" />
+    <Compile Include="Database\DbOpLoadAllWorlds.cs" />
+    <Compile Include="Database\DbOpRecordBattleEncounter.cs" />
+    <Compile Include="Database\DbOpRecordBattleList.cs" />
+    <Compile Include="Database\DbOpRecordDungeonList.cs" />
+    <Compile Include="Database\FFRKMySqlInstance.cs" />
+    <Compile Include="Database\ISelectParam.cs" />
+    <Compile Include="Database\SelectBuilder.cs" />
+    <Compile Include="Database\SelectSingleParam`1.cs" />
+    <Compile Include="Database\SelectMultiParam`2.cs" />
+    <Compile Include="GameData\DataGachaDrawItemDetails.cs" />
+    <Compile Include="GameData\BasicEnemyParentInfo.cs" />
+    <Compile Include="GameData\BasicFeaturedItemInfo.cs" />
+    <Compile Include="GameData\BasicRelicDropInfo.cs" />
+    <Compile Include="GameData\DataAIArgs.cs" />
+    <Compile Include="GameData\DataDungeonPrizeItem.cs" />
+    <Compile Include="GameData\DataDungeonPrizes.cs" />
+    <Compile Include="GameData\DataEnemyAbility.cs" />
+    <Compile Include="GameData\DataEnemyAbilityOptions.cs" />
+    <Compile Include="GameData\DataEnemyConstraints.cs" />
+    <Compile Include="GameData\DataEnemyParamAbilities.cs" />
+    <Compile Include="GameData\DataEnemyParamAnimationInfo.cs" />
+    <Compile Include="GameData\DataEnemyParamCounters.cs" />
+    <Compile Include="GameData\DataGachaDraw.cs" />
+    <Compile Include="GameData\DataGachaDrawItem.cs" />
+    <Compile Include="GameData\DataGachaDrawUser.cs" />
+    <Compile Include="GameData\DataGachaGemsDraw.cs" />
+    <Compile Include="GameData\DataGachaProbabilityOverview.cs" />
+    <Compile Include="GameData\DataGachaSeriesBanner.cs" />
+    <Compile Include="GameData\DataGachaSeriesBannerEquipment.cs" />
+    <Compile Include="GameData\DataGachaSeriesBannerEquipmentAttributes.cs" />
+    <Compile Include="GameData\DataGachaSeriesBannerLM.cs" />
+    <Compile Include="GameData\DataGachaSeriesBannerSB.cs" />
+    <Compile Include="GameData\FilteredRelicDropInfo.cs" />
+    <Compile Include="GameData\DataAbility.cs" />
+    <Compile Include="GameData\DataAbilityOption.cs" />
+    <Compile Include="GameData\DataDefAttributes.cs" />
+    <Compile Include="GameData\DataDungeonCaptures.cs" />
+    <Compile Include="GameData\DataDungeonSpScore.cs" />
+    <Compile Include="GameData\DataPotion.cs" />
+    <Compile Include="GameData\DataMateria.cs" />
+    <Compile Include="GameData\DataBuddyEquipUsage.cs" />
+    <Compile Include="GameData\DataUserDungeon.cs" />
+    <Compile Include="GameData\EquipmentUsage.cs" />
+    <Compile Include="GameData\EquipStats.cs" />
+    <Compile Include="GameData\StatCalculator.cs" />
+    <Compile Include="GameData\BasicEnemyInfo.cs" />
+    <Compile Include="GameData\BasicItemDropStats.cs" />
+    <Compile Include="GameData\DataBuddyInformation.cs" />
+    <Compile Include="GameData\DataGachaSeriesBox.cs" />
+    <Compile Include="GameData\DataGachaSeriesEntryPoint.cs" />
+    <Compile Include="GameData\DataGachaSeriesInfo.cs" />
+    <Compile Include="GameData\DataGachaSeriesList.cs" />
+    <Compile Include="GameData\RealmSynergy.cs" />
+    <Compile Include="GameData\SchemaConstants.cs" />
+    <Compile Include="GameData\DataActiveBattle.cs" />
+    <Compile Include="GameData\DataBattle.cs" />
+    <Compile Include="GameData\DataBattleRound.cs" />
+    <Compile Include="GameData\DataDungeon.cs" />
+    <Compile Include="GameData\DataEnemy.cs" />
+    <Compile Include="GameData\DataEnemyChild.cs" />
+    <Compile Include="GameData\DataEnemyDropItem.cs" />
+    <Compile Include="GameData\DataEnemyParam.cs" />
+    <Compile Include="GameData\DataGachaItem.cs" />
+    <Compile Include="GameData\DataGachaSeriesProbabilitiesByRarity.cs" />
+    <Compile Include="GameData\DataGachaSeriesItemDetails.cs" />
+    <Compile Include="GameData\DataWorld.cs" />
+    <Compile Include="GameData\DropEvent.cs" />
+    <Compile Include="GameData\EventBattleInitiated.cs" />
+    <Compile Include="GameData\DataGachaSeriesItemsForEntryPoints.cs" />
+    <Compile Include="GameData\GameState.cs" />
+    <Compile Include="GameData\DataDungeonSession.cs" />
+    <Compile Include="GameData\EventListBattles.cs" />
+    <Compile Include="GameData\EventListDungeons.cs" />
+    <Compile Include="GameData\DataUser.cs" />
+    <Compile Include="GameData\Party\DataEquipmentInformation.cs" />
+    <Compile Include="GameData\Party\DataPartyDetails.cs" />
+    <Compile Include="GameData\Party\DataPartySlotToBuddyId.cs" />
+    <Compile Include="GameData\Party\DataPartySlotToBuddyIdRoot.cs" />
+    <Compile Include="GameData\AppInit\AppInitData.cs" />
+    <Compile Include="GameData\AppInit\DataUser.cs" />
+    <Compile Include="GameData\AppInit\EventData.cs" />
+    <Compile Include="GameData\Converters\EnemyAbilityParser.cs" />
+    <Compile Include="GameData\Converters\semiNumericComparer.cs" />
+    <Compile Include="GameData\Converters\EnemyAbilityParserOptions.cs" />
+    <Compile Include="GameData\Converters\MedalConditionParser.cs" />
+    <Compile Include="GameData\Converters\Translator.cs" />
+    <Compile Include="GameData\Converters\EpochToDateTime.cs" />
+    <Compile Include="GameData\Converters\EquipUsageListConverter.cs" />
+    <Compile Include="GameData\Converters\JsonCreationConverter`1.cs" />
+    <Compile Include="GameData\Converters\PartySlotListConverter.cs" />
+    <Compile Include="GameData\Converters\IntToBool.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx" />
+    <EmbeddedResource Include="UI\DatabaseUI\FFRKViewDatabase.resx" />
+    <EmbeddedResource Include="UI\DatabaseUI\ItemStatsPanel.resx" />
+    <EmbeddedResource Include="UI\DatabaseUI\MissingItemsPanel.resx" />
+    <EmbeddedResource Include="UI\FFRKTabInspector.resx" />
+    <EmbeddedResource Include="UI\FFRKViewAbout.resx" />
+    <EmbeddedResource Include="UI\FFRKViewActiveBattle.resx" />
+    <EmbeddedResource Include="UI\FFRKViewActiveDungeon.resx" />
+    <EmbeddedResource Include="UI\FFRKViewBrowse.resx" />
+    <EmbeddedResource Include="UI\FFRKViewDebugging.resx" />
+    <EmbeddedResource Include="UI\FFRKViewEnemyDetails.resx" />
+    <EmbeddedResource Include="UI\FFRKViewGacha.resx" />
+    <EmbeddedResource Include="UI\FFRKViewGacha2.resx" />
+    <EmbeddedResource Include="UI\FFRKViewInventory.resx" />
+    <EmbeddedResource Include="UI\FFRKViewItemSearch.resx" />
+    <EmbeddedResource Include="UI\ListViewEx.resx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
