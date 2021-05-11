@@ -92,7 +92,26 @@ namespace FFRKInspector.Functionality
 
             AppendBossHealthGatesAndMoveSummary(comboBoxEnemySelection, checkBoxCastTimes, checkBoxEnumerate, checkBoxRatesAsFractions, checkBoxTranslate, basicEnemyParentInfoList, summary, hasVariableCastTimes, abilitySummaryHelper);
 
+            AppendDataAiArgs(summary, basicEnemyParentInfoList);
             return summary;
+        }
+
+        private void AppendDataAiArgs(StringBuilder summary, List<BasicEnemyParentInfo> basicEnemyParentInfoList)
+        {
+            summary.Append("\n**AI Args:**  \n");
+            foreach (var basicEnemyParentInfo in basicEnemyParentInfoList)
+            {
+                foreach (var aiArg in basicEnemyParentInfo.AiArgs.OrderBy(arg => arg.Tag))
+                {
+                    summary.AppendLine(aiArg.Tag);
+                    foreach (var tagValue in aiArg.ArgValue.Split(new char['\n']))
+                    {
+                        summary.AppendLine(tagValue);
+                        summary.AppendLine();
+                    }
+                }
+                
+            }
         }
 
         private static void AppendBossHealthGatesAndMoveSummary(ComboBox comboBoxEnemySelection, CheckBox checkBoxCastTimes,
