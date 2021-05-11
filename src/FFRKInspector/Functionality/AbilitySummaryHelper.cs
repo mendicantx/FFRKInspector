@@ -22,40 +22,41 @@ namespace FFRKInspector.Functionality
                 totalWeight += enemyAbility.Weight;
             var source = new List<string>();
             var enemyAbilityParser = new EnemyAbilityParser(totalWeight, battle, single);
-            var checkState = checkBoxCastTimes.CheckState;
-            bool flag1;
-            if (checkState.Equals(CheckState.Indeterminate))
+            var checkCastTimesCheckState = checkBoxCastTimes.CheckState;
+            bool hasVariableCastTime;
+            if (checkCastTimesCheckState.Equals(CheckState.Indeterminate))
             {
-                flag1 = enemy.EnemyCastTime.Equals("Variable");
+                hasVariableCastTime = enemy.EnemyCastTime.Equals("Variable");
             }
             else
             {
-                checkState = checkBoxCastTimes.CheckState;
-                flag1 = checkState.Equals(CheckState.Checked);
+                checkCastTimesCheckState = checkBoxCastTimes.CheckState;
+                hasVariableCastTime = checkCastTimesCheckState.Equals(CheckState.Checked);
             }
 
-            checkState = checkBoxEnumerate.CheckState;
-            bool flag2;
-            if (checkState.Equals(CheckState.Indeterminate))
+            var checkBoxEnumerateCheckState = checkBoxEnumerate.CheckState;
+            bool enumerateForcedActions;
+            if (checkBoxEnumerateCheckState.Equals(CheckState.Indeterminate))
             {
                 var num = 0;
                 foreach (var constraint in myEnemyParent.Constraints)
                     if (constraint.ConstraintType == 1001U && (int)constraint.EnemyStatusId == (int)enemy.EnemyId)
                         ++num;
-                flag2 = num >= 10;
+                enumerateForcedActions = num >= 10;
             }
             else
             {
-                checkState = checkBoxEnumerate.CheckState;
-                flag2 = checkState.Equals(CheckState.Checked);
+                checkBoxEnumerateCheckState = checkBoxEnumerate.CheckState;
+                enumerateForcedActions = checkBoxEnumerateCheckState.Equals(CheckState.Checked);
             }
 
             var parseOpt = new EnemyAbilityParserOptions
             {
                 displayFractions = checkBoxRatesAsFractions.Checked,
-                displayCastTimes = flag1,
+                displayCastTimes = hasVariableCastTime,
                 translateAbilityNames = checkBoxTranslate.Checked
             };
+
             var orderedEnumerable = enemy.getAbilities(myEnemyParent.Constraints).OrderBy(x =>
             {
                 var val2 = int.MaxValue;
@@ -72,12 +73,14 @@ namespace FFRKInspector.Functionality
 
                 return val2;
             }).OrderBy(x => x.Weight).OrderBy(x => x.Weight != 0U ? x.UnlockTurn : 0U);
-            if (flag2)
+
+            if (enumerateForcedActions)
             {
                 var val1 = 0;
                 foreach (var constraint in myEnemyParent.Constraints)
                     if (constraint.ConstraintType == 1001U && (int)constraint.EnemyStatusId == (int)enemy.EnemyId)
                         val1 = Math.Max(val1, int.Parse(constraint.ConstraintValue));
+
                 for (var enumeratedTurn = 1; enumeratedTurn <= val1; ++enumeratedTurn)
                     foreach (var constraint1 in myEnemyParent.Constraints)
                         if (constraint1.ConstraintType == 1001U &&
@@ -121,8 +124,7 @@ namespace FFRKInspector.Functionality
                 foreach (var paramAbility in orderedEnumerable)
                     if (paramAbility.Weight > 0U)
                     {
-                        source.Add(enemyAbilityParser.parseAbility(paramAbility, myEnemyParent.Constraints, enemy,
-                            parseOpt, false, 0));
+                        source.Add(enemyAbilityParser.parseAbility(paramAbility, myEnemyParent.Constraints, enemy, parseOpt, false, 0));
                     }
                     else
                     {
@@ -148,8 +150,7 @@ namespace FFRKInspector.Functionality
             else
             {
                 foreach (var paramAbility in orderedEnumerable)
-                    source.Add(
-                        enemyAbilityParser.parseAbility(paramAbility, myEnemyParent.Constraints, enemy, parseOpt));
+                    source.Add(enemyAbilityParser.parseAbility(paramAbility, myEnemyParent.Constraints, enemy, parseOpt));
             }
 
             var list = source.OrderBy(x => x[0] != 'T').ThenBy(x => x[0] != 'S').ToList();
