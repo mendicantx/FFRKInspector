@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace FFRKInspector.GameData
 {
-  internal class DataBuddyInformation
+    public class DataBuddyInformation
   {
     [JsonProperty("row")]
     public SchemaConstants.PartyFormation Formation;

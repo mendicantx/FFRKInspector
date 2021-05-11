@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace FFRKInspector.GameData
 {
-  internal class DataAIArgs
+  public class DataAIArgs
   {
     [JsonProperty("arg_type")]
     public uint ArgType;

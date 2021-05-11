@@ -6,7 +6,7 @@
 
 namespace FFRKInspector.GameData
 {
-  internal class DropEvent
+    public class DropEvent
   {
     public uint EnemyId;
     public string EnemyName;

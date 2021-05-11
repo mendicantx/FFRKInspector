@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace FFRKInspector.GameData
 {
-  internal class DataPotion
+    public class DataPotion
   {
     [JsonProperty("type")]
     public uint Type;

@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace FFRKInspector.GameData
 {
-  internal class DataBuddyEquipUsage
+    public class DataBuddyEquipUsage
   {
     [JsonProperty("category_id")]
     public SchemaConstants.EquipmentCategory Category;

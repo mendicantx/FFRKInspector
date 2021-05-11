@@ -57,6 +57,10 @@
   <ItemGroup>
     <Compile Include="equipmentStatsDataSet.cs" />
     <Compile Include="EquipUsageDataSet.cs" />
+    <Compile Include="Functionality\AbilitySummaryHelper.cs" />
+    <Compile Include="Functionality\ItemNameGetter.cs" />
+    <Compile Include="Functionality\StatusVulnerabilityGetter.cs" />
+    <Compile Include="Functionality\SummaryInformationGenerator.cs" />
     <Compile Include="missingItemsDataSet.cs" />
     <Compile Include="Utility\IConverter`2.cs" />
     <Compile Include="Utility\CriticalZ.cs" />
@@ -311,5 +315,6 @@
     <EmbeddedResource Include="UI\FFRKViewItemSearch.resx" />
     <EmbeddedResource Include="UI\ListViewEx.resx" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

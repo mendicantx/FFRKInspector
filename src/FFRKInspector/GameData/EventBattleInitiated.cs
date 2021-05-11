@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace FFRKInspector.GameData
 {
-  internal class EventBattleInitiated
+    public class EventBattleInitiated
   {
     [JsonProperty("battle")]
     public DataActiveBattle Battle;

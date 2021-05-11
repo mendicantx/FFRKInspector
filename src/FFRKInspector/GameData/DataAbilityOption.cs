@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace FFRKInspector.GameData
 {
-  internal class DataAbilityOption
+    public class DataAbilityOption
   {
     [JsonProperty("ability_animation_id")]
     public int AnimId;

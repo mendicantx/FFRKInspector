@@ -12,7 +12,7 @@ using System.ComponentModel;
 
 namespace FFRKInspector.GameData
 {
-  internal class DataEnemyParam
+    public class DataEnemyParam
   {
     [JsonProperty("disp_name")]
     public string Name;

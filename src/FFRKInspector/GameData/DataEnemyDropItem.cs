@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace FFRKInspector.GameData
 {
-  internal class DataEnemyDropItem
+    public class DataEnemyDropItem
   {
     [JsonProperty("rarity")]
     public uint Rarity;

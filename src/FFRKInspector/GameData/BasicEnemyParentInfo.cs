@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace FFRKInspector.GameData
 {
-  internal class BasicEnemyParentInfo
+  public class BasicEnemyParentInfo
   {
     public uint EnemyId;
     public ulong AiId;

@@ -13,7 +13,7 @@ using System.ComponentModel;
 
 namespace FFRKInspector.GameData
 {
-  internal class DataActiveBattle
+    public class DataActiveBattle
   {
     [JsonProperty("rounds")]
     public List<DataBattleRound> Rounds;

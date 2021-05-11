@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace FFRKInspector.GameData
 {
-  internal class DataEnemyAbility
+    public class DataEnemyAbility
   {
     [JsonProperty("ability_id")]
     public uint AbilityId;

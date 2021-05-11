@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace FFRKInspector.GameData
 {
-  internal class BasicEnemyInfo
+  public class BasicEnemyInfo
   {
     public uint EnemyId;
     public string EnemyName;

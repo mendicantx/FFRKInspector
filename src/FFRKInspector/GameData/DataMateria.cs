@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace FFRKInspector.GameData
 {
-  internal class DataMateria
+    public class DataMateria
   {
     [JsonProperty("name")]
     public string Name;

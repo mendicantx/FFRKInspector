@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace FFRKInspector.GameData
 {
-  internal class DataEnemyParamAnimationInfo
+    public class DataEnemyParamAnimationInfo
   {
     [JsonProperty("path")]
     public string Path;
