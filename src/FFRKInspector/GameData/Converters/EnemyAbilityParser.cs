@@ -94,44 +94,7 @@ namespace FFRKInspector.GameData.Converters
 
             abilityStringBuilder.Append(" (");
             var input = parseAbilityEffects(ability);
-            if (enumeratedTurn > 0 &&
-                (enemy.EnemyParentInfo.Phases.Count() >= 4 || enemy.EnemyParentInfo.ChildPosId == 1U) &&
-                enemy.EnemyParentInfo.AiArgs.Any(x => x.Tag.Contains("ABILITY_TARGET_MAP_TURN_STATUS_NO_")))
-            {
-                var target = parseTarget(ability.Options);
-                var myPhase = enemy.EnemyId % 10U;
-                var list2 = enemy.EnemyParentInfo.AiArgs
-                    .FirstOrDefault(x => x.Tag == "ABILITY_TARGET_MAP_TURN_STATUS_NO_" + myPhase).ArgValue.Split(new string[1]
-                    {
-                        "\n"
-                    }, StringSplitOptions.None).ToList();
-                var match = new Regex(string.Format("^{0}:", enumeratedTurn));
-                var str2 = list2.FirstOrDefault(x => match.Match(x).Success);
-                if (str2 != null)
-                {
-                    var hitSlots = str2.Replace(enumeratedTurn + ":", "");
-                    hitSlots = hitSlots.Replace("buddy(", "").Replace(")", "");
-                    
-                    var strArray = hitSlots.Split(',');
-                    strArray[0] = strArray[0].Replace(" ", "");
-                    var replacement = "";
-                    if (strArray.Length == 5)
-                    {
-                        replacement = "AoE";
-                    }
-                    else if (strArray.Length == 1)
-                    {
-                        replacement = string.Format("Slot [{0}]", strArray[0]);
-                    }
-                    else if (strArray.Length >= 2)
-                    {
-                        replacement = string.Format("Slots [{0}]", string.Join("-", strArray));
-                    }
-
-                    if (replacement != "")
-                        input = new Regex(Regex.Escape(target)).Replace(input, replacement, 1);
-                }
-            }
+            input = SetAbilityTargets(enemy, enumeratedTurn, ability, input);
 
             abilityStringBuilder.Append(input);
             abilityStringBuilder.Append(")");
@@ -223,7 +186,83 @@ namespace FFRKInspector.GameData.Converters
                 abilityStringBuilder.Append("]");
             }
 
+            AddSavageIncreases(abilityStringBuilder, enemy, enumeratedTurn);
+
             return abilityStringBuilder.ToString();
+        }
+
+        private void AddSavageIncreases(StringBuilder abilityStringBuilder, BasicEnemyInfo enemy, int enumeratedTurn)
+        {
+            if (enumeratedTurn > 0 &&
+                (enemy.EnemyParentInfo.Phases.Count() >= 4 || enemy.EnemyParentInfo.ChildPosId == 1U) &&
+                enemy.EnemyParentInfo.AiArgs.Any(x => x.Tag.Contains("added_mad_lv_with_turn_condition_of_phase_")))
+            {
+                var myPhase = enemy.EnemyId % 10U;
+
+                var enemyRageIncreases = enemy.EnemyParentInfo.AiArgs
+                    .FirstOrDefault(aiarg => aiarg.Tag == "added_mad_lv_with_turn_condition_of_phase_" + myPhase).ArgValue
+                    .Split(
+                        new string[1]
+                        {
+                            "\n"
+                        }, StringSplitOptions.None).ToList();
+
+                var turnMatchingPattern = new Regex(string.Format("^{0}:", enumeratedTurn));
+                var turnTargets = enemyRageIncreases.FirstOrDefault(x => turnMatchingPattern.Match(x).Success);
+                
+                if (turnTargets != null)
+                {
+                    var splitArg = turnTargets.Split(new string[] {":"}, StringSplitOptions.None);
+
+                    if (splitArg.Length >= 2)
+                        abilityStringBuilder.Append("\nSavage Level+" + splitArg[1]);
+                }
+            }
+        }
+
+        private string SetAbilityTargets(BasicEnemyInfo enemy, int enumeratedTurn, DataEnemyAbility ability, string input)
+        {
+            if (enumeratedTurn > 0 &&
+                (enemy.EnemyParentInfo.Phases.Count() >= 4 || enemy.EnemyParentInfo.ChildPosId == 1U) &&
+                enemy.EnemyParentInfo.AiArgs.Any(x => x.Tag.Contains("ABILITY_TARGET_MAP_TURN_STATUS_NO_")))
+            {
+                var target = parseTarget(ability.Options);
+                var myPhase = enemy.EnemyId % 10U;
+                var enemyTargets = enemy.EnemyParentInfo.AiArgs
+                    .FirstOrDefault(aiarg => aiarg.Tag == "ABILITY_TARGET_MAP_TURN_STATUS_NO_" + myPhase).ArgValue.Split(
+                        new string[1]
+                        {
+                            "\n"
+                        }, StringSplitOptions.None).ToList();
+                var turnMatchingPattern = new Regex(string.Format("^{0}:", enumeratedTurn));
+                var turnTargets = enemyTargets.FirstOrDefault(x => turnMatchingPattern.Match(x).Success);
+                if (turnTargets != null)
+                {
+                    var hitSlots = turnTargets.Replace(enumeratedTurn + ":", "");
+                    hitSlots = hitSlots.Replace("buddy(", "").Replace(")", "");
+
+                    var strArray = hitSlots.Split(',');
+                    strArray[0] = strArray[0].Replace(" ", "");
+                    var replacement = "";
+                    if (strArray.Length == 5)
+                    {
+                        replacement = "AoE";
+                    }
+                    else if (strArray.Length == 1)
+                    {
+                        replacement = string.Format("Slot [{0}]", strArray[0]);
+                    }
+                    else if (strArray.Length >= 2)
+                    {
+                        replacement = string.Format("Slots [{0}]", string.Join("-", strArray));
+                    }
+
+                    if (replacement != "")
+                        input = new Regex(Regex.Escape(target)).Replace(input, replacement, 1);
+                }
+            }
+
+            return input;
         }
 
         public string parseCounter(DataEnemyParamCounters counter, EnemyAbilityParserOptions parseOpt)
