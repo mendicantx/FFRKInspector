@@ -228,8 +228,12 @@ namespace FFRKInspector.GameData.Converters
             {
                 var target = parseTarget(ability.Options);
                 var myPhase = enemy.EnemyId % 10U;
-                var enemyTargets = enemy.EnemyParentInfo.AiArgs
-                    .FirstOrDefault(aiarg => aiarg.Tag == "ABILITY_TARGET_MAP_TURN_STATUS_NO_" + myPhase).ArgValue.Split(
+                
+                var phaseTurnStatusArgs = enemy.EnemyParentInfo.AiArgs.FirstOrDefault(aiarg => aiarg.Tag == "ABILITY_TARGET_MAP_TURN_STATUS_NO_" + myPhase);
+                if (phaseTurnStatusArgs == null)
+                    return input;
+
+                var enemyTargets = phaseTurnStatusArgs.ArgValue.Split(
                         new string[1]
                         {
                             "\n"
