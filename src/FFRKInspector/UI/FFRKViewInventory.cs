@@ -748,8 +748,7 @@ namespace FFRKInspector.UI
       while (!(parent is FFRKTabInspector))
         parent = parent.Parent;
       FFRKTabInspector ffrkTabInspector = (FFRKTabInspector) parent;
-      ffrkTabInspector.DatabaseTab.DatabaseMode = FFRKViewDatabase.DatabaseModeEnum.MissingItems;
-      ffrkTabInspector.SelectedPage = FFRKTabInspector.InspectorPage.Database;
+      ffrkTabInspector.SelectedPage = FFRKTabInspector.InspectorPage.About;
     }
 
     private void RecalculateInventory()

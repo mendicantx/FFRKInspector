@@ -147,29 +147,7 @@ namespace FFRKInspector.UI
 
     private void DoSearch()
     {
-      DbOpFilterDrops dbOpFilterDrops = new DbOpFilterDrops(FFRKProxy.Instance.Database);
-      dbOpFilterDrops.Name.Value = this.textBoxNameFilter.Text;
-      foreach (RealmSynergy.SynergyValue selectedItem in this.listBoxRealmSynergy.SelectedItems)
-        dbOpFilterDrops.Synergies.AddValue(selectedItem);
-      if (this.listBoxWorld.Enabled)
-      {
-        foreach (FFRKViewItemSearch.WorldListItem selectedItem in this.listBoxWorld.SelectedItems)
-          dbOpFilterDrops.Worlds.AddValue(selectedItem.WorldId);
-      }
-      if (this.listBoxBattle.Enabled)
-      {
-        foreach (FFRKViewItemSearch.BattleListItem selectedItem in this.listBoxBattle.SelectedItems)
-          dbOpFilterDrops.Battles.AddValue(selectedItem.BattleId);
-      }
-      if (this.listBoxDungeon.Enabled)
-      {
-        foreach (FFRKViewItemSearch.DungeonListItem selectedItem in this.listBoxDungeon.SelectedItems)
-          dbOpFilterDrops.Dungeons.AddValue(selectedItem.DungeonId);
-      }
-      foreach (SchemaConstants.Rarity selectedItem in this.listBoxRarity.SelectedItems)
-        dbOpFilterDrops.Rarities.AddValue(selectedItem);
-      dbOpFilterDrops.OnRequestComplete += new DbOpFilterDrops.DataReadyCallback(this.DbOpFilterDrops_OnRequestComplete);
-      FFRKProxy.Instance.Database.BeginExecuteRequest((IDbRequest) dbOpFilterDrops);
+
     }
 
     private void buttonSearch_Click(object sender, EventArgs e) => this.DoSearch();

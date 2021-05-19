@@ -39,7 +39,6 @@ namespace FFRKInspector.Proxy
           ++data.HistoSamples;
         }
       }
-      FFRKProxy.Instance.Database.BeginExecuteRequest((IDbRequest) new DbOpRecordBattleEncounter(activeBattle));
       FFRKProxy.Instance.RaiseBattleComplete(activeBattle);
     }
   }

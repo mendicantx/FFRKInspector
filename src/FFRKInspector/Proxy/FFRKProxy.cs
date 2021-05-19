@@ -28,7 +28,6 @@ namespace FFRKInspector.Proxy
     private TabPage mTabPage;
     private FFRKTabInspector mInspectorView;
     private ResponseHistory mHistory;
-    private FFRKMySqlInstance mDatabaseInstance;
     private GameState mGameState;
     private List<IResponseHandler> mResponseHandlers;
     private FFRKDataCache mCache;
@@ -41,7 +40,6 @@ namespace FFRKInspector.Proxy
 
     internal GameState GameState => this.mGameState;
 
-    internal FFRKMySqlInstance Database => this.mDatabaseInstance;
 
     internal FFRKDataCache Cache => this.mCache;
 
@@ -73,33 +71,32 @@ namespace FFRKInspector.Proxy
 
     internal event FFRKProxy.GachaSeriesListDelegate OnGachaSeriesList;
 
+    internal event LabrynthSessionUpdatedDelegate OnLabrynthSessionUpdated;
+
     public void OnLoad()
     {
       this.LoadAppSettings();
       FFRKProxy.mInstance = this;
       this.mResponseHandlers = new List<IResponseHandler>();
-      this.mResponseHandlers.Add((IResponseHandler) new HandleAppInitData());
-      this.mResponseHandlers.Add((IResponseHandler) new HandlePartyList());
-      this.mResponseHandlers.Add((IResponseHandler) new HandleListBattles());
-      this.mResponseHandlers.Add((IResponseHandler) new HandleListDungeons());
-      this.mResponseHandlers.Add((IResponseHandler) new HandleLeaveDungeon());
-      this.mResponseHandlers.Add((IResponseHandler) new HandleInitiateBattle());
-      this.mResponseHandlers.Add((IResponseHandler) new HandleGachaSeriesList());
-      this.mResponseHandlers.Add((IResponseHandler) new HandleGachaSeriesDetails());
-      this.mResponseHandlers.Add((IResponseHandler) new HandleCompleteBattle());
-      this.mResponseHandlers.Add((IResponseHandler) new HandleGachaDraw());
+      this.mResponseHandlers.Add(new HandleAppInitData());
+      this.mResponseHandlers.Add(new HandlePartyList());
+      this.mResponseHandlers.Add(new HandleListBattles());
+      this.mResponseHandlers.Add(new HandleListDungeons());
+      this.mResponseHandlers.Add(new HandleLeaveDungeon());
+      this.mResponseHandlers.Add(new HandleInitiateBattle());
+      this.mResponseHandlers.Add(new HandleGachaSeriesList());
+      this.mResponseHandlers.Add(new HandleGachaSeriesDetails());
+      this.mResponseHandlers.Add(new HandleCompleteBattle());
+      this.mResponseHandlers.Add(new HandleGachaDraw());
+      this.mResponseHandlers.Add(new HandleLabrynthSession());
       this.mHistory = new ResponseHistory();
       this.mGameState = new GameState();
-      this.mDatabaseInstance = new FFRKMySqlInstance();
       this.mCache = new FFRKDataCache();
       this.mTabPage = new TabPage("FFRK Inspector");
       this.mInspectorView = new FFRKTabInspector();
       this.mInspectorView.Dock = DockStyle.Fill;
       this.mTabPage.Controls.Add((Control) this.mInspectorView);
       ((TabControl) FiddlerApplication.UI.tabsViews).TabPages.Add(this.mTabPage);
-      this.mDatabaseInstance.OnConnectionInitialized += new FFRKMySqlInstance.ConnectionInitializedDelegate(this.mDatabaseInstance_OnConnectionInitialized);
-      this.mDatabaseInstance.OnSchemaError += new FFRKMySqlInstance.ConnectionInitializedDelegate(this.mDatabaseInstance_OnSchemaError);
-      this.mDatabaseInstance.InitializeConnection(this.MinimumRequiredSchema);
     }
 
     public void OnBeforeUnload()
@@ -142,93 +139,6 @@ namespace FFRKInspector.Proxy
       }
     }
 
-    private void mDatabaseInstance_OnSchemaError(FFRKMySqlInstance.ConnectResult ConnectResult)
-    {
-      int num;
-      this.mTabPage.BeginInvoke((Action) (() => num = (int) MessageBox.Show("FFRK Inspector has been updated.  Please download the latest release from https://github.com/Spirialis/FFRKInspector.  Database connectivity will be unavailable for the remainder of this session.")));
-    }
-
-    private void mDatabaseInstance_OnConnectionInitialized(FFRKMySqlInstance.ConnectResult Result)
-    {
-      switch (Result)
-      {
-        case FFRKMySqlInstance.ConnectResult.Success:
-          this.PopulateDataCache();
-          break;
-        case FFRKMySqlInstance.ConnectResult.SchemaTooOld:
-          int num1;
-          this.mTabPage.BeginInvoke((Action) (() => num1 = (int) MessageBox.Show("The database you are connected to is for an older version of FFRK Inspector.  Please point to a newer database instance.  Database connectivity will not be available for this session.", "Database version mismatch")));
-          break;
-        case FFRKMySqlInstance.ConnectResult.SchemaTooNew:
-          int num2;
-          this.mTabPage.BeginInvoke((Action) (() => num2 = (int) MessageBox.Show("FFRK Inspector is outdated and needs to be updated.  Please update to the latest version.  Database connectivity will not be available for this session.", "Database version mismatch")));
-          break;
-      }
-    }
-
-    private void PopulateDataCache()
-    {
-      DbOpLoadAllItems dbOpLoadAllItems = new DbOpLoadAllItems();
-      dbOpLoadAllItems.OnRequestComplete += new DbOpLoadAllItems.DataReadyCallback(this.DbOpLoadAllItems_OnRequestComplete);
-      this.mDatabaseInstance.BeginExecuteRequest((IDbRequest) dbOpLoadAllItems);
-      DbOpLoadAllBattles opLoadAllBattles = new DbOpLoadAllBattles();
-      opLoadAllBattles.OnRequestComplete += new DbOpLoadAllBattles.DataReadyCallback(this.DbOpLoadAllBattles_OnRequestComplete);
-      this.mDatabaseInstance.BeginExecuteRequest((IDbRequest) opLoadAllBattles);
-      DbOpLoadAllDungeons opLoadAllDungeons = new DbOpLoadAllDungeons();
-      opLoadAllDungeons.OnRequestComplete += new DbOpLoadAllDungeons.DataReadyCallback(this.DbOpLoadAllDungeons_OnRequestComplete);
-      this.mDatabaseInstance.BeginExecuteRequest((IDbRequest) opLoadAllDungeons);
-      DbOpLoadAllWorlds dbOpLoadAllWorlds = new DbOpLoadAllWorlds();
-      dbOpLoadAllWorlds.OnRequestComplete += new DbOpLoadAllWorlds.DataReadyCallback(this.DbOpLoadAllWorlds_OnRequestComplete);
-      this.mDatabaseInstance.BeginExecuteRequest((IDbRequest) dbOpLoadAllWorlds);
-      DbOpLoadAllBanners opLoadAllBanners = new DbOpLoadAllBanners();
-      opLoadAllBanners.OnRequestComplete += new DbOpLoadAllBanners.DataReadyCallback(this.DbOpLoadAllBanners_OnRequestComplete);
-      this.mDatabaseInstance.BeginExecuteRequest((IDbRequest) opLoadAllBanners);
-    }
-
-    private void DbOpLoadAllWorlds_OnRequestComplete(FFRKDataCacheTable<FFRKInspector.DataCache.Worlds.Key, FFRKInspector.DataCache.Worlds.Data> worlds)
-    {
-      lock (this.mCache.SyncRoot)
-        this.mCache.Worlds = worlds;
-      if (this.OnItemCacheRefreshed == null)
-        return;
-      this.OnItemCacheRefreshed();
-    }
-
-    private void DbOpLoadAllDungeons_OnRequestComplete(FFRKDataCacheTable<FFRKInspector.DataCache.Dungeons.Key, FFRKInspector.DataCache.Dungeons.Data> dungeons)
-    {
-      lock (this.mCache.SyncRoot)
-        this.mCache.Dungeons = dungeons;
-      if (this.OnItemCacheRefreshed == null)
-        return;
-      this.OnItemCacheRefreshed();
-    }
-
-    private void DbOpLoadAllBattles_OnRequestComplete(FFRKDataCacheTable<FFRKInspector.DataCache.Battles.Key, FFRKInspector.DataCache.Battles.Data> battles)
-    {
-      lock (this.mCache.SyncRoot)
-        this.mCache.Battles = battles;
-      if (this.OnItemCacheRefreshed == null)
-        return;
-      this.OnItemCacheRefreshed();
-    }
-
-    private void DbOpLoadAllItems_OnRequestComplete(FFRKDataCacheTable<FFRKInspector.DataCache.Items.Key, FFRKInspector.DataCache.Items.Data> items)
-    {
-      lock (this.mCache.SyncRoot)
-        this.mCache.Items = items;
-      if (this.OnItemCacheRefreshed == null)
-        return;
-      this.OnItemCacheRefreshed();
-    }
-
-    private void DbOpLoadAllBanners_OnRequestComplete(FFRKDataCacheTable<FFRKInspector.DataCache.Banners.Key, FFRKInspector.DataCache.Banners.Data> banners)
-    {
-      lock (this.mCache.SyncRoot)
-        this.mCache.Banners = banners;
-      if (this.OnItemCacheRefreshed == null)
-        return;
-      this.OnItemCacheRefreshed();
-    }
 
     public void AutoTamperRequestBefore(Session oSession)
     {
@@ -305,6 +215,12 @@ namespace FFRKInspector.Proxy
       this.OnLeaveDungeon();
     }
 
+    internal void RaiseLabrynthSessionUpdated(LabrynthSessionData labrynthSession)
+    {
+        if (OnLabrynthSessionUpdated == null)
+            return;
+        OnLabrynthSessionUpdated(labrynthSession);
+    }
     internal void RaiseBattleComplete(EventBattleInitiated original_battle)
     {
       if (this.OnCompleteBattle == null)
@@ -336,6 +252,8 @@ namespace FFRKInspector.Proxy
     internal delegate void BattleInitiatedDelegate(EventBattleInitiated battle);
 
     internal delegate void BattleResultDelegate(EventBattleInitiated battle);
+
+    internal delegate void LabrynthSessionUpdatedDelegate(LabrynthSessionData labrynthSession);
 
     internal delegate void ListBattlesDelegate(EventListBattles battles);
 

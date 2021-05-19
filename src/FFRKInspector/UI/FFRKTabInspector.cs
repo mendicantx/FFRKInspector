@@ -35,12 +35,12 @@ namespace FFRKInspector.UI
     private FFRKViewAbout ffrkViewAbout1;
     private FFRKViewActiveDungeon ffrkViewActiveDungeon;
     private FFRKViewItemSearch ffrkViewItemSearch1;
-    private TabPage tabPageEditEquipment;
-    private FFRKViewDatabase ffrkViewEditItemStats1;
     private TabPage tabPageBattle;
     private FFRKViewActiveBattle ffrkViewActiveBattle;
     private TabPage tabPageEnemyDetails;
     private FFRKViewEnemyDetails ffrkViewEnemyDetails;
+    private FFRKViewLabrynth ffrkViewLabrynth;
+    private TabPage tabPageViewLabrynth;
     private TabPage tabPageViewGachaVer2;
     private FFRKViewGacha2 ffrkViewGacha2;
     private FFRKViewInventory ffrkViewInventory1;
@@ -61,8 +61,6 @@ namespace FFRKInspector.UI
       }
     }
 
-    public FFRKViewDatabase DatabaseTab => (FFRKViewDatabase) this.tabPageEditEquipment.Controls[0];
-
     public FFRKTabInspector()
     {
       this.InitializeComponent();
@@ -70,11 +68,11 @@ namespace FFRKInspector.UI
       this.tabPageDungeon.Tag = (object) FFRKTabInspector.InspectorPage.CurrentDungeon;
       this.tabPageBattle.Tag = (object) FFRKTabInspector.InspectorPage.CurrentBattle;
       this.tabPageDebug.Tag = (object) FFRKTabInspector.InspectorPage.Debugging;
-      this.tabPageEditEquipment.Tag = (object) FFRKTabInspector.InspectorPage.Database;
       this.tabPageGacha.Tag = (object) FFRKTabInspector.InspectorPage.Gacha;
       this.tabPageInventory.Tag = (object) FFRKTabInspector.InspectorPage.Inventory;
       this.tabPageSearch.Tag = (object) FFRKTabInspector.InspectorPage.ItemSearch;
       this.tabPageEnemyDetails.Tag = (object) FFRKTabInspector.InspectorPage.EnemyDetails;
+      this.tabPageViewLabrynth.Tag = "Labrynth";
     }
 
     private void FFRKTabInspectorView_Load(object sender, EventArgs e)
@@ -82,7 +80,6 @@ namespace FFRKInspector.UI
       this.tabControlFFRKInspector.SelectedIndexChanged += new EventHandler(this.tabControlFFRKInspector_SelectedIndexChanged);
       if (FFRKProxy.Instance == null)
         return;
-      FFRKProxy.Instance.Database.OnConnectionStateChanged += new FFRKMySqlInstance.ConnectionStateChangedDelegate(this.Database_OnConnectionStateChanged);
     }
 
     private void tabControlFFRKInspector_SelectedIndexChanged(object sender, EventArgs e)
@@ -91,13 +88,6 @@ namespace FFRKInspector.UI
 
     private void FFRKTabInspector_HandleDestroyed(object sender, EventArgs e)
     {
-    }
-
-    private void Database_OnConnectionStateChanged(FFRKMySqlInstance.ConnectionState NewState)
-    {
-      if (!this.IsHandleCreated)
-        return;
-      this.BeginInvoke((Action) (() => this.toolStripStatusLabelConnection.Text = NewState.ToString()));
     }
 
     private void tabPageInventory_Click(object sender, EventArgs e)
@@ -120,14 +110,14 @@ namespace FFRKInspector.UI
       this.ffrkViewActiveBattle = new FFRKViewActiveBattle();
       this.tabPageEnemyDetails = new TabPage();
       this.ffrkViewEnemyDetails = new FFRKViewEnemyDetails();
+      tabPageViewLabrynth = new TabPage();
+      ffrkViewLabrynth = new FFRKViewLabrynth();
       this.tabPageViewGachaVer2 = new TabPage();
       this.ffrkViewGacha2 = new FFRKViewGacha2();
       this.tabPageSearch = new TabPage();
       this.ffrkViewItemSearch1 = new FFRKViewItemSearch();
       this.tabPageInventory = new TabPage();
       this.ffrkViewInventory1 = new FFRKViewInventory();
-      this.tabPageEditEquipment = new TabPage();
-      this.ffrkViewEditItemStats1 = new FFRKViewDatabase();
       this.tabPageGacha = new TabPage();
       this.ffrkViewGacha1 = new FFRKViewGacha();
       this.tabPageAbout = new TabPage();
@@ -141,10 +131,10 @@ namespace FFRKInspector.UI
       this.tabPageDungeon.SuspendLayout();
       this.tabPageBattle.SuspendLayout();
       this.tabPageEnemyDetails.SuspendLayout();
+      tabPageViewLabrynth.SuspendLayout();
       this.tabPageViewGachaVer2.SuspendLayout();
       this.tabPageSearch.SuspendLayout();
       this.tabPageInventory.SuspendLayout();
-      this.tabPageEditEquipment.SuspendLayout();
       this.tabPageGacha.SuspendLayout();
       this.tabPageAbout.SuspendLayout();
       this.tabPageDebug.SuspendLayout();
@@ -153,9 +143,9 @@ namespace FFRKInspector.UI
       this.tabControlFFRKInspector.Controls.Add((Control) this.tabPageDungeon);
       this.tabControlFFRKInspector.Controls.Add((Control) this.tabPageBattle);
       this.tabControlFFRKInspector.Controls.Add((Control) this.tabPageEnemyDetails);
+      this.tabControlFFRKInspector.Controls.Add((Control) this.tabPageViewLabrynth);
       this.tabControlFFRKInspector.Controls.Add((Control) this.tabPageSearch);
       this.tabControlFFRKInspector.Controls.Add((Control) this.tabPageInventory);
-      this.tabControlFFRKInspector.Controls.Add((Control) this.tabPageEditEquipment);
       this.tabControlFFRKInspector.Controls.Add((Control) this.tabPageViewGachaVer2);
       this.tabControlFFRKInspector.Controls.Add((Control) this.tabPageAbout);
       this.tabControlFFRKInspector.Controls.Add((Control) this.tabPageDebug);
@@ -191,6 +181,14 @@ namespace FFRKInspector.UI
       this.tabPageEnemyDetails.Size = new Size(1000, 800);
       this.tabPageEnemyDetails.TabIndex = 0;
       this.tabPageEnemyDetails.Text = "Enemy Details";
+      this.tabPageEnemyDetails.UseVisualStyleBackColor = true;
+      tabPageViewLabrynth.Controls.Add((Control) this.ffrkViewLabrynth);
+      this.tabPageViewLabrynth.Location = new Point(4, 22);
+      this.tabPageViewLabrynth.Name = "tabpageViewLabrynth";
+      this.tabPageViewLabrynth.Size = new Size(1000, 800);
+      this.tabPageViewLabrynth.TabIndex = 0;
+      this.tabPageViewLabrynth.Text = "Labrynth";
+      tabPageViewLabrynth.UseVisualStyleBackColor = true;
       this.tabPageEnemyDetails.UseVisualStyleBackColor = true;
       this.ffrkViewEnemyDetails.Location = new Point(-4, 0);
       this.ffrkViewEnemyDetails.Name = "ffrkViewActiveBattle";
@@ -236,19 +234,6 @@ namespace FFRKInspector.UI
       this.ffrkViewInventory1.Name = "ffrkViewInventory1";
       this.ffrkViewInventory1.Size = new Size(984, 594);
       this.ffrkViewInventory1.TabIndex = 0;
-      this.tabPageEditEquipment.Controls.Add((Control) this.ffrkViewEditItemStats1);
-      this.tabPageEditEquipment.Location = new Point(4, 22);
-      this.tabPageEditEquipment.Name = "tabPageEditEquipment";
-      this.tabPageEditEquipment.Size = new Size(983, 590);
-      this.tabPageEditEquipment.TabIndex = 9;
-      this.tabPageEditEquipment.Text = "Edit Database";
-      this.tabPageEditEquipment.UseVisualStyleBackColor = true;
-      this.ffrkViewEditItemStats1.DatabaseMode = FFRKViewDatabase.DatabaseModeEnum.EquipmentAndStats;
-      this.ffrkViewEditItemStats1.Dock = DockStyle.Fill;
-      this.ffrkViewEditItemStats1.Location = new Point(0, 0);
-      this.ffrkViewEditItemStats1.Name = "ffrkViewEditItemStats1";
-      this.ffrkViewEditItemStats1.Size = new Size(983, 590);
-      this.ffrkViewEditItemStats1.TabIndex = 0;
       this.tabPageGacha.Controls.Add((Control) this.ffrkViewGacha1);
       this.tabPageGacha.Location = new Point(4, 22);
       this.tabPageGacha.Name = "tabPageGacha";
@@ -313,7 +298,6 @@ namespace FFRKInspector.UI
       this.tabPageBattle.ResumeLayout(false);
       this.tabPageSearch.ResumeLayout(false);
       this.tabPageInventory.ResumeLayout(false);
-      this.tabPageEditEquipment.ResumeLayout(false);
       this.tabPageGacha.ResumeLayout(false);
       this.tabPageAbout.ResumeLayout(false);
       this.tabPageDebug.ResumeLayout(false);
@@ -328,6 +312,7 @@ namespace FFRKInspector.UI
       CurrentDungeon,
       CurrentBattle,
       EnemyDetails,
+      Labrynth,
       ItemSearch,
       Inventory,
       Database,

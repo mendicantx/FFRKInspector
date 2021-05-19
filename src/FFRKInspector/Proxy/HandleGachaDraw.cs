@@ -49,7 +49,6 @@ namespace FFRKInspector.Proxy
           FiddlerApplication.Log.LogString("HandleGachaDraw Error");
         }
       }
-      FFRKProxy.Instance.Database.BeginExecuteRequest((IDbRequest) new DbOpRecordGachaDraw(gachaDraw, gachaDrawItems));
     }
   }
 }

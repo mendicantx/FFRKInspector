@@ -43,7 +43,6 @@ namespace FFRKInspector.Proxy
           }
         }
       }
-      FFRKProxy.Instance.Database.BeginExecuteRequest((IDbRequest) new DbOpRecordDungeonList(dungeons));
       FFRKProxy.Instance.RaiseListDungeons(dungeons);
     }
   }

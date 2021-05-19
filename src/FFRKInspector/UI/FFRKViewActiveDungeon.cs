@@ -92,10 +92,6 @@ namespace FFRKInspector.UI
     {
       if (dungeon != null)
       {
-        DbOpFilterDrops dbOpFilterDrops = new DbOpFilterDrops(FFRKProxy.Instance.Database);
-        dbOpFilterDrops.Dungeons.AddValue(dungeon.DungeonSession.DungeonId);
-        dbOpFilterDrops.OnRequestComplete += new DbOpFilterDrops.DataReadyCallback(this.RequestDungeonDrops_OnRequestComplete);
-        FFRKProxy.Instance.Database.BeginExecuteRequest((IDbRequest) dbOpFilterDrops);
       }
       else
       {

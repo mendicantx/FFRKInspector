@@ -51,7 +51,6 @@ namespace FFRKInspector.Proxy
           num += battle.Stamina;
         }
       }
-      FFRKProxy.Instance.Database.BeginExecuteRequest((IDbRequest) new DbOpRecordBattleList(battles));
       FFRKProxy.Instance.RaiseListBattles(battles);
     }
   }

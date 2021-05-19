@@ -19,7 +19,6 @@ namespace FFRKInspector.Proxy
     {
       DataGachaSeriesList SeriesList = JsonConvert.DeserializeObject<DataGachaSeriesList>(Session.GetResponseBodyAsString());
       FFRKProxy.Instance.GameState.GachaSeries = SeriesList;
-      FFRKProxy.Instance.Database.BeginExecuteRequest((IDbRequest) new DbOpRecordGachaSeriesList(SeriesList));
       FFRKProxy.Instance.RaiseGachaSeriesList();
     }
   }

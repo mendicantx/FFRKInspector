@@ -85,7 +85,6 @@ namespace FFRKInspector.UI.DatabaseUI
     {
       if (FFRKProxy.Instance == null)
         return;
-      this.missing_itemsTableAdapter.Connection = FFRKProxy.Instance.Database.Connection;
     }
 
     public void Reload() => this.missing_itemsTableAdapter.Fill(this.missingItemsDataSet.missing_items);

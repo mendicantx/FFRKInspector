@@ -31,7 +31,6 @@ namespace FFRKInspector.Proxy
           Rarity = equipment.BaseRarity,
           Series = new uint?(equipment.SeriesId)
         });
-      FFRKProxy.Instance.Database.BeginExecuteRequest((IDbRequest) dbOpInsertItems);
       FFRKProxy.Instance.GameState.PartyDetails = party;
       FFRKProxy.Instance.RaisePartyList(party);
     }

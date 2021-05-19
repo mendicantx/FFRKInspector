@@ -57,28 +57,6 @@ namespace FFRKInspector.UI
 
     private void buttonTestSettings_Click(object sender, EventArgs e)
     {
-      try
-      {
-        switch (FFRKProxy.Instance.Database.TestConnect(this.textBoxHost.Text, this.textBoxUser.Text, this.textBoxPassword.Text, this.textBoxSchema.Text, FFRKProxy.Instance.MinimumRequiredSchema))
-        {
-          case FFRKMySqlInstance.ConnectResult.Success:
-            int num1 = (int) MessageBox.Show(FFRKViewAbout.mConnectionSuccessMsg, "Success");
-            break;
-          case FFRKMySqlInstance.ConnectResult.SchemaTooOld:
-            int num2 = (int) MessageBox.Show(FFRKViewAbout.mDatabaseTooOldMsg, "Database too old");
-            break;
-          case FFRKMySqlInstance.ConnectResult.SchemaTooNew:
-            int num3 = (int) MessageBox.Show(FFRKViewAbout.mDatabaseTooNewMsg, "Database too new");
-            break;
-          case FFRKMySqlInstance.ConnectResult.InvalidConnection:
-            int num4 = (int) MessageBox.Show(FFRKViewAbout.mInvalidConnectionMsg, "Invalid connection parameters");
-            break;
-        }
-      }
-      catch (MySqlException ex)
-      {
-        int num = (int) MessageBox.Show(string.Format(FFRKViewAbout.mInvalidConnectionMsg, (object) ex.Message));
-      }
     }
 
     private void buttonSaveSettings_Click(object sender, EventArgs e)

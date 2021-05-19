@@ -100,10 +100,6 @@ namespace FFRKInspector.UI
     {
       if (battle != null)
       {
-        DbOpFilterDrops dbOpFilterDrops = new DbOpFilterDrops(FFRKProxy.Instance.Database);
-        dbOpFilterDrops.Battles.AddValue(battle.Battle.BattleId);
-        dbOpFilterDrops.OnRequestComplete += new DbOpFilterDrops.DataReadyCallback(this.RequestBattleDrops_OnRequestComplete);
-        FFRKProxy.Instance.Database.BeginExecuteRequest((IDbRequest) dbOpFilterDrops);
       }
       else
       {

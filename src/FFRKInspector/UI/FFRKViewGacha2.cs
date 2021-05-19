@@ -110,7 +110,6 @@ namespace FFRKInspector.UI
       }
       DbOpLoadFeaturedItems loadFeaturedItems = new DbOpLoadFeaturedItems(BannerID, isJP);
       loadFeaturedItems.OnRequestComplete += new DbOpLoadFeaturedItems.DataReadyCallback(this.RequestFeaturedItems_OnRequestComplete);
-      FFRKProxy.Instance.Database.BeginExecuteRequest((IDbRequest) loadFeaturedItems);
     }
 
     private void RequestFeaturedItems_OnRequestComplete(Dictionary<int, BasicFeaturedItemInfo> items)
@@ -133,7 +132,6 @@ namespace FFRKInspector.UI
       }
       DbOpFilterDraws dbOpFilterDraws = new DbOpFilterDraws(BannerID, isJP);
       dbOpFilterDraws.OnRequestComplete += new DbOpFilterDraws.DataReadyCallback(this.RequestRelicDraws_OnRequestComplete);
-      FFRKProxy.Instance.Database.BeginExecuteRequest((IDbRequest) dbOpFilterDraws);
     }
 
     private void RequestRelicDraws_OnRequestComplete(Dictionary<long, BasicRelicDropInfo> draws)

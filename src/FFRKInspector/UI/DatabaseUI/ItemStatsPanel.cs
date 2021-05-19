@@ -79,7 +79,6 @@ namespace FFRKInspector.UI.DatabaseUI
     {
       if (FFRKProxy.Instance == null)
         return;
-      this.equipment_statsTableAdapter.Connection = FFRKProxy.Instance.Database.Connection;
     }
 
     public void Reload() => this.equipment_statsTableAdapter.Fill(this.equipmentStatsDataSet.equipment_stats);

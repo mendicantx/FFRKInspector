@@ -58,7 +58,6 @@ namespace FFRKInspector.Proxy
                   string str = JsonConvert.SerializeObject((object) keyValuePair.Value);
                   DataGachaSeriesItemsForEntryPoints.ItemsForEntryPoint itemsForEntryPoint = new DataGachaSeriesItemsForEntryPoints.ItemsForEntryPoint();
                   itemsForEntryPoint.ItemDetails = JsonConvert.DeserializeObject<DataGachaSeriesItemDetails>(str);
-                  FFRKProxy.Instance.Database.BeginExecuteRequest((IDbRequest) new DbOpRecordGachaProbabilities(itemsForEntryPoint.ItemDetails, series_id, serverTime));
                   gacha.Gachas.Add(num2, itemsForEntryPoint);
                   List<DataGachaSeriesInfo> seriesList = FFRKProxy.Instance.GameState.GachaSeries.SeriesList;
                   if (seriesList != null)

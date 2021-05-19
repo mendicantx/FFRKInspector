@@ -11,48 +11,13 @@ namespace FFRKInspector.GameData
 {
   internal class GameState
   {
-    private EventBattleInitiated mActiveBattle;
-    private EventListBattles mActiveDungeon;
-    private DataGachaSeriesList mGachas;
-    private DataPartyDetails mParty;
-    private AppInitData mAppInitData;
+        public EventBattleInitiated ActiveBattle { get; set; }
+        public EventListBattles ActiveDungeon { get; set; }
+        public DataGachaSeriesList GachaSeries { get; set; }
+        public DataPartyDetails PartyDetails { get; set; }
+        public AppInitData AppInitData { get; set; }
+        public LabrynthSessionData LabrynthSessionData { get; set; }
 
-    public EventBattleInitiated ActiveBattle
-    {
-      get => this.mActiveBattle;
-      set => this.mActiveBattle = value;
-    }
 
-    public EventListBattles ActiveDungeon
-    {
-      get => this.mActiveDungeon;
-      set => this.mActiveDungeon = value;
-    }
-
-    public DataGachaSeriesList GachaSeries
-    {
-      get => this.mGachas;
-      set => this.mGachas = value;
-    }
-
-    public DataPartyDetails PartyDetails
-    {
-      get => this.mParty;
-      set => this.mParty = value;
-    }
-
-    public AppInitData AppInitData
-    {
-      get => this.mAppInitData;
-      set => this.mAppInitData = value;
-    }
-
-    public GameState()
-    {
-      this.mActiveBattle = (EventBattleInitiated) null;
-      this.mActiveDungeon = (EventListBattles) null;
-      this.mGachas = (DataGachaSeriesList) null;
-      this.mAppInitData = (AppInitData) null;
-    }
   }
 }

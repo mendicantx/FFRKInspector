@@ -15,7 +15,6 @@ namespace FFRKInspector.Database
 {
   internal class DbOpFilterDrops : IDbRequest
   {
-    private FFRKMySqlInstance mDatabase;
     private List<BasicItemDropStats> mDropList;
     private SelectMultiParam<SchemaConstants.ItemType, uint> mItemTypes;
     private SelectMultiParam<SchemaConstants.Rarity, uint> mRarities;
@@ -49,20 +48,6 @@ namespace FFRKInspector.Database
     }
 
     public event DbOpFilterDrops.DataReadyCallback OnRequestComplete;
-
-    public DbOpFilterDrops(FFRKMySqlInstance Database)
-    {
-      this.mDatabase = Database;
-      this.mItemTypes = new SelectMultiParam<SchemaConstants.ItemType, uint>("item_type");
-      this.mRarities = new SelectMultiParam<SchemaConstants.Rarity, uint>("item_rarity");
-      this.mSynergies = new SelectMultiParam<RealmSynergy.SynergyValue, uint>("item_series", (Converter<RealmSynergy.SynergyValue, uint>) (x => x.GameSeries));
-      this.mWorlds = new SelectMultiParam<uint, uint>("world_id");
-      this.mDungeons = new SelectMultiParam<uint, uint>("dungeon_id");
-      this.mBattles = new SelectMultiParam<uint, uint>("battleid");
-      this.mName = new SelectSingleParam<string>("item_name", SelectSingleParam<string>.ParamOperator.Like);
-      this.mOnlyRepeatable = false;
-      this.mDropList = new List<BasicItemDropStats>();
-    }
 
     public void Execute(MySqlConnection connection, MySqlTransaction transaction)
     {
