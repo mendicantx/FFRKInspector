@@ -85,7 +85,7 @@ namespace FFRKInspector.GameData.Converters
             }
 
             var str1 = parseOpt.translateAbilityNames ? translateAbility(ability.name) : ability.name;
-            abilityStringBuilder.Append(": " + str1);
+            abilityStringBuilder.Append(": "+ str1 + "("+paramAbility.Tag+")");
             if (parseOpt.displayCastTimes)
             {
                 decimal castTime = ability.Options.CastTime;

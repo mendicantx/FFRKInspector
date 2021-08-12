@@ -12,7 +12,9 @@ namespace FFRKInspector.Proxy
 {
   internal class HandleLabrynthSession : SimpleResponseHandler
   {
-    public override bool CanHandle(Session Session) => Session.oRequest.headers.RequestPath.EndsWith("get_display_paintings") || Session.oRequest.headers.RequestPath.EndsWith("select_painting");
+    public override bool CanHandle(Session Session) => Session.oRequest.headers.RequestPath.EndsWith("get_display_paintings") || 
+                                                       Session.oRequest.headers.RequestPath.EndsWith("select_painting") ||
+                                                       Session.oRequest.headers.RequestPath.EndsWith("choose_explore_painting");
 
     public override void Handle(Session Session)
     {

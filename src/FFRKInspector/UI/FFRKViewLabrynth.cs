@@ -103,7 +103,7 @@ namespace FFRKInspector.UI
 
         private void SetChestContents(int chestContentsId, Label label)
         {
-            label.Text = (chestContentsId >= 500000 && chestContentsId < 600000) ? "Equipment" : "";
+            label.Text = (chestContentsId >= 500000 && chestContentsId < 600000) ? chestContentsId.ToString() + " (Equipment)" : chestContentsId.ToString();
         }
 
         private void FFRKViewLabrynth_Load(object sender, EventArgs e)
