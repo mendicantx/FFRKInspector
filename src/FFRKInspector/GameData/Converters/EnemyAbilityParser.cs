@@ -106,7 +106,7 @@ namespace FFRKInspector.GameData.Converters
                      (int) enemyConstraints.EnemyStatusId == (int) enemy.EnemyId) &&
                     enemyConstraints.AbilityTag.Equals(paramAbility.Tag))
                 {
-                    var str2 = enemyConstraints.EnemyStatusId == 0U ? "global" : "local";
+                    var globalOrLocal = enemyConstraints.EnemyStatusId == 0U ? "global" : "local";
                     if (enemyConstraints.ConstraintType != 1001U || include1001 || enemyConstraints.EnemyStatusId == 0U)
                         flag2 = true;
                     uint result = 0;
@@ -116,7 +116,7 @@ namespace FFRKInspector.GameData.Converters
                     {
                         case 1001:
                             if (include1001 || enemyConstraints.EnemyStatusId == 0U)
-                                source1.Add(string.Format("on {0} turn {1}", str2, result));
+                                source1.Add(string.Format("on {0} turn {1}", globalOrLocal, result));
                             break;
                         case 1002:
                             source1.Add(string.Format("on {0} turn after last use", AddOrdinal(result)));
@@ -128,13 +128,13 @@ namespace FFRKInspector.GameData.Converters
                                 parseOpt.translateAbilityNames ? translateAbility(name) : (object) name));
                             break;
                         case 1004:
-                            source1.Add(string.Format("on {0} turn {1} if not yet used", str2, result));
+                            source1.Add(string.Format("on {0} turn {1} if not yet used", globalOrLocal, result));
                             break;
                         case 1005:
                             source1.Add(string.Format("when below {0}% HP if not yet used", (uint) ((int) result + 1)));
                             break;
                         case 2001:
-                            source2.Add(string.Format("until {0} turn {1}", str2, result));
+                            source2.Add(string.Format("until {0} turn {1}", globalOrLocal, result));
                             break;
                         case 2002:
                             source2.Add(string.Format("for {0} turn{1} after use", (uint) ((int) result - 1),
@@ -150,7 +150,7 @@ namespace FFRKInspector.GameData.Converters
                             source2.Add(string.Format("when below {0}% HP", (uint) ((int) result + 1)));
                             break;
                         case 2006:
-                            source2.Add(string.Format("after {0} turn {1}", str2, result));
+                            source2.Add(string.Format("after {0} turn {1}", globalOrLocal, result));
                             break;
                         default:
                             source1.Add("Error: constraint type not found");
@@ -199,13 +199,19 @@ namespace FFRKInspector.GameData.Converters
             {
                 var myPhase = enemy.EnemyId % 10U;
 
-                var enemyRageIncreases = enemy.EnemyParentInfo.AiArgs
-                    .FirstOrDefault(aiarg => aiarg.Tag == "added_mad_lv_with_turn_condition_of_phase_" + myPhase).ArgValue
-                    .Split(
-                        new string[1]
-                        {
-                            "\n"
-                        }, StringSplitOptions.None).ToList();
+                var enemyRageIncreasesPreSplitArg = enemy.EnemyParentInfo.AiArgs
+                    .FirstOrDefault(aiarg => aiarg.Tag == "added_mad_lv_with_turn_condition_of_phase_" + myPhase);
+
+                string enemyRageIncreasesPreSplit = null;
+
+                if (enemyRageIncreasesPreSplitArg != null)
+                    enemyRageIncreasesPreSplit = enemyRageIncreasesPreSplitArg.ArgValue;
+
+                var enemyRageIncreases = new string[] { "" }.ToList();
+                if (enemyRageIncreasesPreSplit != null)
+                {
+                    enemyRageIncreases = enemyRageIncreasesPreSplit.Split(new string[1] { "\n" }, StringSplitOptions.None).ToList();
+                }
 
                 var turnMatchingPattern = new Regex(string.Format("^{0}:", enumeratedTurn));
                 var turnTargets = enemyRageIncreases.FirstOrDefault(x => turnMatchingPattern.Match(x).Success);
