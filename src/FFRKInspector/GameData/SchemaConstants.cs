@@ -4069,6 +4069,7 @@ namespace FFRKInspector.GameData
 
     public enum StatusID : uint
     {
+      INCREASE_ELEMENT_DEF_ALL_3_TIME_LARGE_BUNDLE = 1175,
       Poison = 200, // 0x000000C8
       Silence = 201, // 0x000000C9
       Paralyze = 202, // 0x000000CA
@@ -5063,6 +5064,9 @@ namespace FFRKInspector.GameData
 
     public enum StatusAilmentsBundle : uint
     {
+      INCREASE_ELEMENT_DEF_ALL_3_TIME_LARGE_BUNDLE = 1175,
+      UNSET_PAIN = 30111,
+      CUSTOM_ATK_DEF_MATK_MDEF = 609, // 0x00000261
       LOT = 1,
       Esuna = 2,
       Dispel = 3,
